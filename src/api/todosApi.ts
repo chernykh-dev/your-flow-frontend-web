@@ -10,7 +10,7 @@ type TodoItemModel = {
 }
 
 export const getTodos =
-    () => axios.get(API_BASE);
+    () => axios.get(`${API_BASE}/sorted`);
 
 export const addTodo =
     (data: TodoItemModel) => axios.post(API_BASE, data);

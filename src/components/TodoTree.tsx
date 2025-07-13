@@ -15,6 +15,7 @@ export default function TodoTree() {
         setTreeData(buildTree(data));
     }
 
+    /*
     const sortByCompleted = (a, b) => {
         if (a.isCompleted && !b.isCompleted)
             return -1;
@@ -25,6 +26,7 @@ export default function TodoTree() {
         const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
         return orderA - orderB;
     }
+    */
 
     const buildTree = (items) => {
         const map = new Map();
@@ -44,8 +46,8 @@ export default function TodoTree() {
 
         const sortTree = (nodes) => {
             return nodes
-                .map(x => ({ ...x, children: sortTree(x.children || []) }))
-                .sort(sortByCompleted);
+                .map(x => ({ ...x, children: sortTree(x.children || []) }));
+                // .sort(sortByCompleted);
         }
 
         return sortTree(roots);
