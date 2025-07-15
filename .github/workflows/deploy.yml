@@ -13,11 +13,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 10.9.2
-
       - name: Clear old directory
         uses: appleboy/ssh-action@master
         with:
