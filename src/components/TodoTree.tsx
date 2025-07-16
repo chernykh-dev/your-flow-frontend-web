@@ -172,12 +172,24 @@ export default function TodoTree() {
         nodes.map(node => ({
             ...node,
             title: (
-                <Space>
+                <Space
+                    wrap
+                    style={{
+                        rowGap: 4,
+                        columnGap: 8,
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                    }}
+                >
                     <Checkbox
                         checked={node.isCompleted}
                         onChange={() => onCheckToggle(node)}
                     />
-                    <span style={{ textDecoration: node.isCompleted ? "line-through" : "none" }}>
+                    <span style={{
+                        textDecoration: node.isCompleted ? "line-through" : "none",
+                        flex: 1,
+                    }}
+                    >
                         {node.title}
                     </span>
                     <Button icon={<PlusOutlined />} size="small" onClick={() => onAdd(node)} />
@@ -190,12 +202,15 @@ export default function TodoTree() {
 
     return (
         <>
-            <Tree
-                treeData={renderTree(treeData)}
-                defaultExpandAll
-                draggable
-                onDrop={handleDrop}
-            />
+            <div style={{ overflowX: "auto", maxWidth: "100%" }}>
+                <Tree
+                    treeData={renderTree(treeData)}
+                    defaultExpandAll
+                    draggable
+                    onDrop={handleDrop}
+                />
+            </div>
+
             <Button
                 type="primary"
                 onClick={() => {
@@ -203,7 +218,7 @@ export default function TodoTree() {
                     setEditingNode(null);
                     form.resetFields();
                 }}
-                style={{ marginTop: 16 }}
+                style={{ marginTop: 16, width: "100%" }}
             >
                 Add Root Task
             </Button>
