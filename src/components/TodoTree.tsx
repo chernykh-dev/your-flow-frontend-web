@@ -172,6 +172,36 @@ export default function TodoTree() {
         nodes.map(node => ({
             ...node,
             title: (
+                <div className="flex flex-wrap items-center gap-2">
+                    <Checkbox
+                        checked={node.isCompleted}
+                        onChange={() => onCheckToggle(node)}
+                    />
+                    <span
+                        className={`${
+                            node.isCompleted ? "line-through text-gray-400" : ""
+                        } text-sm sm:text-base`}
+                    >
+                    {node.title}
+                    </span>
+                    <Button
+                        icon={<PlusOutlined/>}
+                        size="small"
+                        onClick={() => onAdd(node)}
+                    />
+                    <Button
+                        icon={<EditOutlined/>}
+                        size="small"
+                        onClick={() => onEdit(node)}
+                    />
+                    <Button
+                        icon={<DeleteOutlined/>}
+                        size="small"
+                        danger
+                        onClick={() => onDelete(node)}
+                    />
+                </div>
+                /*
                 <Space
                     wrap
                     style={{
@@ -196,13 +226,58 @@ export default function TodoTree() {
                     <Button icon={<EditOutlined />} size="small" onClick={() => onEdit(node)} />
                     <Button icon={<DeleteOutlined />} size="small" danger onClick={() => onDelete(node)} />
                 </Space>
+                 */
             ),
             children: node.children ? renderTree(node.children) : []
         }));
 
     return (
-        <>
-            <div style={{ overflowX: "auto", maxWidth: "100%" }}>
+        <div className="w-full">
+            <div className="w-full bg-white p-2 rounded shadow-sm">
+                <Tree
+                    className="overflow-x-auto"
+                    treeData={renderTree(treeData)}
+                    defaultExpandAll
+                    draggable
+                    onDrop={handleDrop}
+                />
+            </div>
+
+            <div className="mt-4 flex justify-center sm:justify-start">
+                <Button
+                    type="primary"
+                    onClick={() => {
+                        setModalVisible(true);
+                        setEditingNode(null);
+                        form.resetFields();
+                    }}
+                >
+                    Add Root Task
+                </Button>
+            </div>
+
+            <Modal
+                title={editingNode ? "Edit Task" : "Add Task"}
+                open={modalVisible}
+                onCancel={() => {
+                    setModalVisible(false);
+                    setEditingNode(null);
+                    form.resetFields();
+                }}
+                onOk={() => form.submit()}
+            >
+                <Form form={form} layout="vertical" onFinish={onFinish}>
+                    <Form.Item name="title" label="Title" rules={[{required: true}]}>
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item name="description" label="Description">
+                        <Input.TextArea/>
+                    </Form.Item>
+                </Form>
+            </Modal>
+        </div>
+        /*<>
+            <div style={{overflowX: "auto", maxWidth: "100%"}}>
                 <Tree
                     treeData={renderTree(treeData)}
                     defaultExpandAll
@@ -218,7 +293,7 @@ export default function TodoTree() {
                     setEditingNode(null);
                     form.resetFields();
                 }}
-                style={{ marginTop: 16, width: "100%" }}
+                style={{marginTop: 16, width: "100%"}}
             >
                 Add Root Task
             </Button>
@@ -242,6 +317,6 @@ export default function TodoTree() {
                     </Form.Item>
                 </Form>
             </Modal>
-        </>
+        </>*/
     );
 }

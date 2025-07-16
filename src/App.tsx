@@ -5,10 +5,8 @@ import TodoTree from "./components/TodoTree";
 
 const { Header, Content } = Layout;
 
-export default function App() {
-  return (
-      <ConfigProvider>
-          <Layout style={{ minHeight: "100vh" }}>
+/*
+          <Layout style={{minHeight: "100vh"}}>
               <Header style={{
                   color: "#fff",
                   fontSize: 20,
@@ -24,6 +22,19 @@ export default function App() {
                   <TodoTree />
               </Content>
           </Layout>
+ */
+
+export default function App() {
+  return (
+      <ConfigProvider>
+          <div className="min-h-screen flex flex-col">
+              <header className="bg-blue-600 text-white text-lg font-semibold text-center py-4">
+                  Todo Checklist
+              </header>
+              <main className="flex-grow p-4 max-w-2xl mx-auto w-full">
+                  <TodoTree/>
+              </main>
+          </div>
       </ConfigProvider>
   )
 }
