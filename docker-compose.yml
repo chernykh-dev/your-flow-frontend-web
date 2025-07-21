@@ -5,4 +5,4 @@ services:
     container_name: frontend
     restart: always
     ports:
-      - '80:80'
+      - '81:80'
